@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Song Catalog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-end" style="padding-top:30px;">
+            <div class="align-self-center">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out" class="btn btn-danger" />
+                </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <h1 class="display-3">Song Files</h1>
+        </div>
+        <div class="row">
+            <div class="col-2"> <a href="/songlist" class="btn btn-primary" style="margin-bottom:20px;">Song Catalog</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="file : ${files}">
+                    <td th:text="${file.fileName}"></td>
+                    <td th:text="${file.mimeType}"></td>
+                    <td class="text-center"><a th:href="@{/file/{id}(id=${file.id})}" class="btn btn-info btn-sm">Download</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/uploadfile" class="btn btn-success" style="margin-bottom:20px;">Upload Song File</a>
+    </div>
+</body>
+
+</html>

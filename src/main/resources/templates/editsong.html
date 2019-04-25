@@ -1,0 +1,77 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Song</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-around">
+			<h2 class="display-3">Edit song</h2>
+		</div>
+	</div>
+	<div class="container">
+		<form th:object="${song}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control" />
+			<div class="row justify-content-center">
+		  	<div class="form-group col-6">
+		  	<label for="title">Title:</label>
+			<input class="form-control" type="text" id="title" th:field="*{title}" />
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<div class="form-group col-6">
+		  	<label for="artist">Artist:</label>
+			<input class="form-control" type="text" id="artist" th:field="*{artist}" />
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<div class="form-group col-6">
+		  	<label for="year">Year:</label>
+			<input class="form-control" type="text" th:field="*{year}" />
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<div class="form-group col-6">
+			<label for="genrelist">Genre:</label>
+			   <select id="genrelist" th:field="*{genre}" class="form-control">
+			      <option th:each="genre: ${genres}"
+			      		  th:value="${genre.genreid}"
+			      		  th:text="${genre.name}"></option>
+			    </select>
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<div class="form-group col-6">
+		  	<label for="difficulty">Difficulty:</label>
+			<input class="form-control" type="text" th:field="*{difficulty}" />
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<div class="form-group col-6">
+			<label for="genrelist">Capo:</label>
+			   <select multiple id="capolist" th:field="*{capo}" class="form-control">
+			      <option th:each="capo: ${capos}"
+			      		  th:value="${capo.capoid}"
+			      		  th:text="${capo.name}"></option>
+			    </select>
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<div class="form-group col-6">
+			<label for="typelist">Type:</label>
+			   <select id="typelist" th:field="*{type}" class="form-control">
+			      <option th:each="type: ${types}"
+			      		  th:value="${type.typeid}"
+			      		  th:text="${type.name}"></option>
+			    </select>
+			</div>
+			</div>
+			<div class="row justify-content-center">
+			<a href="/songlist" class="btn btn-danger" style="margin-right:50px;">Cancel</a>
+			<input type="submit" class="btn btn-success" value="Save changes"></input>
+			</div>
+		</form>	
+	</div>
+</body>
+</html>

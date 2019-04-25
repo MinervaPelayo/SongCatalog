@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Song Catalog </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <style>
+        .card {
+            margin: auto;
+            width: 400px;
+            text-align: center;
+            margin-top: 100px;
+            border: 3px solid green;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h3 class="card-title">Upload Song Files</h3>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" /><br /><br />
+            <a href="/files" class="btn btn-danger">Cancel</a>
+            <input type="submit" class="btn btn-success" value="Submit" />
+        </form>
+    </div>
+</body>
+
+</html>
