@@ -20,7 +20,7 @@
 <body>
     <div class="card">
         <h3 class="card-title">Upload Song Files</h3>
-        <form method="POST" action="/upload" enctype="multipart/form-data">
+        <form method="POST" th:action="@{/upload}" enctype="multipart/form-data">
             <input type="file" name="file" /><br /><br />
             <a href="/files" class="btn btn-danger">Cancel</a>
             <input type="submit" class="btn btn-success" value="Submit" />

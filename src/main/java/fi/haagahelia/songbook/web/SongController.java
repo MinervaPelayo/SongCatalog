@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.facebook.api.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import fi.haagahelia.songbook.domain.FileModel;
 import fi.haagahelia.songbook.domain.FileModelRepository;
@@ -26,6 +28,9 @@ import fi.haagahelia.songbook.domain.GenreRepository;
 import fi.haagahelia.songbook.domain.Song;
 import fi.haagahelia.songbook.domain.SongRepository;
 import fi.haagahelia.songbook.domain.TypeRepository;
+import fi.haagahelia.songbook.domain.UserInfo;
+import fi.haagahelia.songbook.domain.UserInfoRepository;
+import fi.haagahelia.songbook.service.FacebookService;
 
 @Controller
 public class SongController {
@@ -43,6 +48,10 @@ public class SongController {
 	private TypeRepository trepository;
 	@Autowired
 	private FileModelRepository frepository;
+	@Autowired
+	private UserInfoRepository urepository;
+	@Autowired
+	private FacebookService facebookService;
 
 	// Show login page for authentication
 	@RequestMapping(value = "/login")
@@ -150,4 +159,36 @@ public class SongController {
 		return ResponseEntity.status(404).body(null);
 	}
 
+	//Redirect to Facebook login page
+	@RequestMapping(value = "/facebooklogin")
+	public RedirectView facebooklogin() {
+		RedirectView redirectView = new RedirectView();
+		String url = facebookService.facebooklogin();
+		redirectView.setUrl(url);
+		return redirectView;
+	}
+	
+	//Accessing Facebook profile data
+	@GetMapping(value = "/facebook")
+	public String facebook(@RequestParam("code") String code) {
+		String accessToken = facebookService.getFacebookAccessToken(code);
+		return "redirect:facebookprofiledata/" + accessToken;
+	}
+
+	//Retrieving Facebook user information
+	@GetMapping(value = "/facebookprofiledata/{accessToken:.+}")
+	public String facebookprofiledata(@PathVariable String accessToken, Model model) {
+		User user = facebookService.getFacebookUserProfile(accessToken);
+		//UserInfo userInfo = new UserInfo(user.getName(), "$2a$10$0YrHuKVOJILuFAj060eLRe.ITw87ZufRGcHERlk5CUPaziVdjrHJ2", user.getEmail(), "USER");
+		UserInfo userInfo = new UserInfo("facebookUser", "$2a$10$0YrHuKVOJILuFAj060eLRe.ITw87ZufRGcHERlk5CUPaziVdjrHJ2", "facebookUser@gmail.com", "USER");
+		urepository.save(userInfo);
+		model.addAttribute("user", userInfo);
+		return "songlist";
+	}
+	
+	//Show glossary page 
+	@RequestMapping(value = "/glossary")
+	public String glossary() {
+		return "glossary";
+	}
 }

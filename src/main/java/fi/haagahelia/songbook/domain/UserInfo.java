@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,10 @@ public class User {
     @Column(name = "role", nullable = false)
 	private String role;
 
-    public User(){	
+    public UserInfo(){	
     }
     
-	public User(String username, String passwordHash, String email, String role) {
+	public UserInfo(String username, String passwordHash, String email, String role) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;

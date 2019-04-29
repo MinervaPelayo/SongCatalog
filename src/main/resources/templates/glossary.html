@@ -17,31 +17,15 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <h1 class="display-3">Song Files</h1>
+            <h1 class="display-3">Glossary</h1>
         </div>
         <div class="row">
             <div class="col-2"> <a href="/songlist" class="btn btn-primary" style="margin-bottom:20px;">Song Catalog</a>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <table class="table table-striped table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="file : ${files}">
-                    <td th:text="${file.fileName}"></td>
-                    <td th:text="${file.mimeType}"></td>
-                    <td class="text-center"><a th:href="@{/file/{id}(id=${file.id})}" class="btn btn-info btn-sm">Download</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="/uploadfile" class="btn btn-success" style="margin-bottom:20px;">Upload Song File</a>
+        <div class="row justify-content-center">
+             <img src="https://truefire.com/inc/img/guitar-chords/guitar-chord-chart.png" alt="Chords chart" >
+        </div>
     </div>
 </body>
 

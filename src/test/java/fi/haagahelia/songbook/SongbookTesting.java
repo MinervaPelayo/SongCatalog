@@ -18,8 +18,8 @@ import fi.haagahelia.songbook.domain.Song;
 import fi.haagahelia.songbook.domain.SongRepository;
 import fi.haagahelia.songbook.domain.Type;
 import fi.haagahelia.songbook.domain.TypeRepository;
-import fi.haagahelia.songbook.domain.User;
-import fi.haagahelia.songbook.domain.UserRepository;
+import fi.haagahelia.songbook.domain.UserInfo;
+import fi.haagahelia.songbook.domain.UserInfoRepository;
 
 //Testing JPA repositories 
 
@@ -35,7 +35,7 @@ public class SongbookTesting {
 	@Autowired
 	private TypeRepository trepository;
 	@Autowired
-	private UserRepository urepository;
+	private UserInfoRepository urepository;
 	
 	//Create new capo option 
 	@Test
@@ -128,22 +128,22 @@ public class SongbookTesting {
 	//Create new user
 	@Test
 	public void createUser(){
-		User user= new User("minerva", "$2a$04$7KsHcQjGaM99aZ6UaSa3O.rLB8huuz1A776Cq7.GCptZCqcftxKlC","user3@gmail.com", "USER");
-		urepository.save(user);
-		assertThat(user.getId()).isNotNull();
+		UserInfo userInfo= new UserInfo("minerva", "$2a$04$7KsHcQjGaM99aZ6UaSa3O.rLB8huuz1A776Cq7.GCptZCqcftxKlC","user3@gmail.com", "USER");
+		urepository.save(userInfo);
+		assertThat(userInfo.getId()).isNotNull();
 	}
 	
 	//Delete user
 	@Test
 	public void deleteUser(){
-		User user= urepository.findByUsername("user2");
-		urepository.deleteById(user.getId());
+		UserInfo userInfo= urepository.findByUsername("user2");
+		urepository.deleteById(userInfo.getId());
 	}
 	
 	//Search for user
 	@Test
 	public void searchUser(){
-		User user = urepository.findByUsername("user");
-		assertThat(user.getRole()).isEqualTo("USER");
+		UserInfo userInfo = urepository.findByUsername("user");
+		assertThat(userInfo.getRole()).isEqualTo("USER");
 	}
 }

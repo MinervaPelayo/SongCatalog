@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import fi.haagahelia.songbook.domain.User;
-import fi.haagahelia.songbook.domain.UserRepository;
+import fi.haagahelia.songbook.domain.UserInfo;
+import fi.haagahelia.songbook.domain.UserInfoRepository;
 import fi.haagahelia.songbook.domain.Capo;
 import fi.haagahelia.songbook.domain.CapoRepository;
 import fi.haagahelia.songbook.domain.Genre;
@@ -28,7 +28,7 @@ public class SongbookApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(SongRepository repository, GenreRepository grepository, CapoRepository crepository, TypeRepository trepository, UserRepository urepository) {
+	public CommandLineRunner demo(SongRepository repository, GenreRepository grepository, CapoRepository crepository, TypeRepository trepository, UserInfoRepository urepository) {
 		return (args) -> {
 			//Creating and saving demo genres
 			grepository.save(new Genre("Pop"));
@@ -69,8 +69,8 @@ public class SongbookApplication {
 			repository.save(new Song("Wake me up","Green Day", 2014, "Easy", grepository.findByName("Rock").get(0), crepository.findByName("No capo").get(0), trepository.findByName("Tab").get(0)));
 			
 			//Create and save demo users
-			User user1 = new User("user", "$2a$10$0YrHuKVOJILuFAj060eLRe.ITw87ZufRGcHERlk5CUPaziVdjrHJ2","user1@gmail.com", "USER");
-			User user2 = new User("user2", "$2a$10$0YrHuKVOJILuFAj060eLRe.ITw87ZufRGcHERlk5CUPaziVdjrHJ2","user2@gmail.com", "USER");
+			UserInfo user1 = new UserInfo("user", "$2a$10$0YrHuKVOJILuFAj060eLRe.ITw87ZufRGcHERlk5CUPaziVdjrHJ2","user1@gmail.com", "USER");
+			UserInfo user2 = new UserInfo("user2", "$2a$10$0YrHuKVOJILuFAj060eLRe.ITw87ZufRGcHERlk5CUPaziVdjrHJ2","user2@gmail.com", "USER");
 			urepository.save(user1);
 			urepository.save(user2);
 			
